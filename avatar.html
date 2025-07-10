@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avatar Builder</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1a2e; /* Dark background */
+            color: #e0e0e0; /* Light text */
+        }
+        .container {
+            max-width: 90%;
+            margin: 0 auto;
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #2a2a4a;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #6a0578;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8a079a;
+        }
+        .avatar-part {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Ensure parts fit within their container */
+            top: 0;
+            left: 0;
+            transition: opacity 0.3s ease-in-out; /* Smooth transition for parts */
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-center items-center py-8">
+    <div class="container bg-gradient-to-br from-purple-900 to-indigo-900 p-8 rounded-2xl shadow-2xl space-y-8">
+        <h1 class="text-4xl font-bold text-center text-white mb-6">Avatar Builder</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Avatar Controls Section -->
+            <div class="bg-purple-800 bg-opacity-50 p-6 rounded-xl shadow-lg space-y-5">
+                <h2 class="text-2xl font-semibold text-white mb-4">Customize Your Avatar</h2>
+
+                <!-- Avatar Style -->
+                <div>
+                    <label for="avatarStyle" class="block text-purple-200 text-sm font-medium mb-2">Avatar Style:</label>
+                    <select id="avatarStyle" class="w-full p-2 rounded-lg bg-purple-700 border border-purple-600 text-white focus:ring-2 focus:ring-purple-400">
+                        <option value="Circle">Circle</option>
+                        <option value="Transparent">Transparent</option>
+                    </select>
+                </div>
+
+                <!-- Circle Fill Color -->
+                <div id="circleFillColorDiv" class="hidden"> <!-- Initially hidden -->
+                    <label for="circleFillColor" class="block text-purple-200 text-sm font-medium mb-2">Circle Fill Color:</label>
+                    <select id="circleFillColor" class="w-full p-2 rounded-lg bg-purple-700 border border-purple-600 text-white focus:ring-2 focus:ring-purple-400">
+                        <option value="#FFFFFF">White</option>
+                        <option value="#6B46C1">Indigo</option>
+                        <option value="#5A67D8">Blue</option>
+                        <option value="#D69E2E">Orange</option>
+                        <option value="#C53030">Red</option>
+                        <option value="#38A169">Green</option>
+                        <option value="#ED8936">Yellow</option>
+                        <option value="#000000">Black</option>
+                    </select>
+                </div>
+
+                <!-- Top Type -->
+                <div>
+                    <label for="topType" class="block text-purple-200 text-sm font-medium mb-2">Hair/Headwear:</label>
+                    <select id="topType" class="w-full p-2 rounded-lg bg-purple-700 border border-purple-600 text-white focus:ring-2 focus:ring-purple-400">
+                        <option value="NoHair">None</option>
+                        <option value="Eyepatch">Eyepatch</option>
+                        <option value="Hat">Hat</option>
+                        <option value="Hijab">Hijab</option>
+                        <option value="Turban">Turban</option>
+                        <option value="WinterHat1">Winter Hat 1</option>
+                        <option value="WinterHat2">Winter Hat 2</option>
+                        <option value="WinterHat3">Winter Hat 3</option>
+                        <option value="WinterHat4">Winter Hat 4</option>
+                        <option value="LongHairBigHair">Big Hair</option>
+                        <option value="LongHairBob">Bob</option>
+                        <option value="LongHairBun">Bun</option>
+                        <option value="LongHairCurly">Curly</option>
+                        <option value="LongHairCurvy">Curvy</option>
+                        <option value="LongHairDreads">Dreads</option>
+                        <option value="LongHairFrida">Frida</option>
+                        <option value="LongHairFroBand">Fro Band</option>
+                        <option value="LongHairNotTooLong">Not Too Long</option>
+                        <option value="LongHairShavedSides">Shaved Sides</option>
+                        <option value="LongHairMiaWallace">Mia Wallace</option>
+                        <option value="LongHairStraight">Straight</option>
+                        <option value="LongHairStraightStrand">Straight Strand</option>
+                        <option value="ShortHairDreads01">Dreads 1</option>
+                        <option value="ShortHairDreads02">Dreads 2</option>
+                        <option value="ShortHairFrizzle">Frizzle</option>
+                        <option value="ShortHairShaggyMullet">Shaggy Mullet</option>
+                        <option value="ShortHairShortCurly">Short Curly</option>
+                        <option value="ShortHairShortFlat">Short Flat</option>
+                        <option value="ShortHairShortRound">Short Round</option>
+                        <option value="ShortHairShortWavy">Short Wavy</option>
+                        <option value="ShortHairSides">Sides</option>
+                        <option value="ShortHairTheCaesar">The Caesar</union>
+                        <option value="ShortHairTheCaesarSidePart">Caesar Side Part</option>
+                    </select>
+                </div>
+
+                <!-- Hat Color -->
+                <!-- Removed Hat Color option -->
+                <!-- <div id="hatColorDiv" class="hidden">
+                    <label for="hatColor" class="block text-purple-200 text-sm font-medium mb-2">Hat Color:</label>
+                    <select id="hatColor" class="w-full p-2 rounded-lg bg-purple-700 border border-purple-600 text-white focus:ring-2 focus:ring-purple-400">
+                        <option value="Black">Black</option>
+                        <option value="Blue01">Blue 01</option>
+                        <option value="Blue02">Blue 02</option>
+                        <option value="Blue03">Blue 03</option>
+                        <option value="Gray01">Gray 01</option>
+                        <option value="Gray02">Gray 02</option>
+                        <option value="Heather">Heather</option>
+                        <option value="PastelBlue">Pastel Blue</option>
+                        <option value="PastelGreen">Pastel Green</option>
+                        <option value="PastelOrange">Pastel Orange</option>
+                        <option value="PastelRed">Pastel Red</option>
+                        <option value="PastelYellow">Pastel Yellow</option>
+                        <option value="Pink">Pink</option>
+                        <option value="Red">Red</option>
+                        <option value="White">White</option>
+                    </select>
+                </div> -->
+
+                <!-- Hair Color -->
+                <div>
+                    <label for="hairColor" class="block text-purple-200 text-sm font-medium mb-2">Hair Color:</label>
+                    <select id="hairColor" class="w-full p-2 rounded-lg bg-purple-700 border border-purple-600 text-white focus:ring-2 focus:ring-purple-400">
+                        <option value="Auburn">Auburn</option>
+                        <option value="Black">Black</option>
+                        <option value="Blonde">Blonde</option>
+                        <option value="BlondeGolden">Blonde Golden</option>
+                        <option value="Brown">Brown</option>
+                        <option value="BrownDark">Brown Dark</option>
+                        <option value="PastelPink">Pastel Pink</option>
+                        <option value="Platinum">Platinum</option>
+                        <option value="Red">Red</option>
+                        <option value="SilverGray">Silver Gray</option>
+                    </select>
+                </div>
+
+                 <!-- Facial Hair Type -->
+                 <div>
+                    <label for="facialHairType" class="block text-purple-200 text-sm font-medium mb-2">Facial Hair:</label>
+                    <select id="facialHairType" class="w-full p-2 rounded-lg bg-purple-700 border border-purple-600 text-white focus:ring-2 focus:ring-purple-400">
+                        <option value="Blank">None</option>
+                        <option value="BeardMedium">Medium Beard</option>
+                        <option value="BeardLight">Light Beard</option>
+                        <option value="BeardMajestic">Majestic Beard</option>
+                        <option value="MoustacheFancy">Fancy Moustache</option>
+                        <option value="MoustacheMagnum">Magnum Moustache</option>
+                    </select>
+                </div>
+                
+                <!-- Eye Type -->
+                <div>
+                    <label for="eyeType" class="block text-purple-200 text-sm font-medium mb-2">Eye Type:</label>
+                    <select id="eyeType" class="w-full p-2 rounded-lg bg-purple-700 border border-purple-600 text-white focus:ring-2 focus:ring-purple-400">
+                        <option value="Default">Default</option>
+                        <option value="Happy">Happy</option>
+                        <option value="Wink">Wink</option>
+                        <option value="Squint">Squint</option>
+                        <option value="Surprised">Surprised</option>
+                        <option value="Dizzy">Dizzy</option>
+                        <option value="Side">Side</option>
+                        <option value="Hearts">Hearts</option>
+                    </select>
+                </div>
+
+                <!-- Eyebrow Type -->
+                <div>
+                    <label for="eyebrowType" class="block text-purple-200 text-sm font-medium mb-2">Eyebrows:</label>
+                    <select id="eyebrowType" class="w-full p-2 rounded-lg bg-purple-700 border border-purple-600 text-white focus:ring-2 focus:ring-purple-400">
+                        <option value="Default">Default</option>
+                        <option value="DefaultNatural">Natural</option>
+                        <option value="Angry">Angry</option>
+                        <option value="AngryNatural">Angry Natural</option>
+                        <option value="RaisedExcited">Raised Excited</option>
+                        <option value="RaisedExcitedNatural">Raised Excited Natural</option>
+                        <option value="SadConcerned">Sad Concerned</option>
+                        <option value="SadConcernedNatural">Sad Concerned Natural</option>
+                        <option value="UpDown">Up Down</option>
+                        <option value="UpDownNatural">Up Down Natural</option>
+                    </select>
+                </div>
+
+                <!-- Mouth Type -->
+                <div>
+                    <label for="mouthType" class="block text-purple-200 text-sm font-medium mb-2">Mouth:</label>
+                    <select id="mouthType" class="w-full p-2 rounded-lg bg-purple-700 border border-purple-600 text-white focus:ring-2 focus:ring-purple-400">
+                        <option value="Default">Default</option>
+                        <option value="Smile">Smile</option>
+                        <option value="Concerned">Concerned</option>
+                        <option value="Eating">Eating</option>
+                        <option value="Grimace">Grimace</option>
+                        <option value="Sad">Sad</option>
+                        <option value="Twinkle">Twinkle</option>
+                    </select>
+                </div>
+
+                <!-- Skin Color -->
+                <div>
+                    <label for="skinColor" class="block text-purple-200 text-sm font-medium mb-2">Skin Color:</label>
+                    <select id="skinColor" class="w-full p-2 rounded-lg bg-purple-700 border border-purple-600 text-white focus:ring-2 focus:ring-purple-400">
+                        <option value="Tanned">Tanned</option>
+                        <option value="Light Tan">Light Tan</option>
+                        <option value="Pale">Pale</option>
+                        <option value="Light">Light</option>
+                        <option value="Brown">Brown</option>
+                        <option value="Dark">Dark</option>
+                        <option value="Black">Black</option>
+                    </select>
+                </div>
+
+                <!-- Clothes Type -->
+                <div>
+                    <label for="clothesType" class="block text-purple-200 text-sm font-medium mb-2">Clothes:</label>
+                    <select id="clothesType" class="w-full p-2 rounded-lg bg-purple-700 border border-purple-600 text-white focus:ring-2 focus:ring-purple-400">
+                        <option value="BlazerShirt">Blazer Shirt</option>
+                        <option value="BlazerSweater">Blazer Sweater</option>
+                        <option value="CollarSweater">Collar Sweater</option>
+                        <option value="GraphicShirt">Graphic Shirt</option>
+                        <option value="Hoodie">Hoodie</option>
+                        <option value="Overall">Overall</option>
+                        <option value="ShirtCrewNeck">Crew Neck Shirt</option>
+                        <option value="ShirtVNeck">V-Neck Shirt</option>
+                    </select>
+                </div>
+
+                <!-- Clothe Color -->
+                <div>
+                    <label for="clotheColor" class="block text-purple-200 text-sm font-medium mb-2">Clothes Color:</label>
+                    <select id="clotheColor" class="w-full p-2 rounded-lg bg-purple-700 border border-purple-600 text-white focus:ring-2 focus:ring-purple-400">
+                        <option value="Black">Black</option>
+                        <option value="Blue01">Blue 01</option>
+                        <option value="Blue02">Blue 02</option>
+                        <option value="Blue03">Blue 03</option>
+                        <option value="Gray01">Gray 01</option>
+                        <option value="Gray02">Gray 02</option>
+                        <option value="Heather">Heather</option>
+                        <option value="PastelBlue">Pastel Blue</option>
+                        <option value="PastelGreen">Pastel Green</option>
+                        <option value="PastelOrange">Pastel Orange</option>
+                        <option value="PastelRed">Pastel Red</option>
+                        <option value="PastelYellow">Pastel Yellow</option>
+                        <option value="Pink">Pink</option>
+                        <option value="Red">Red</option>
+                        <option value="White">White</option>
+                    </select>
+                </div>
+
+                <!-- Graphic Type (for GraphicShirt) -->
+                <div>
+                    <label for="graphicType" class="block text-purple-200 text-sm font-medium mb-2">Graphic (if wearing Graphic Shirt):</label>
+                    <select id="graphicType" class="w-full p-2 rounded-lg bg-purple-700 border border-purple-600 text-white focus:ring-2 focus:ring-purple-400">
+                        <option value="none">None</option>
+                        <option value="Bat">Bat</option>
+                        <option value="Deer">Deer</option>
+                        <option value="Diamond">Diamond</option>
+                        <option value="Pizza">Pizza</option>
+                        <option value="Bear">Bear</option>
+                        <option value="Skull">Skull</option>
+                        <option value="SkullOutline">Skull Outline</option>
+                    </select>
+                </div>
+
+                <!-- Accessories Type -->
+                <div>
+                    <label for="accessoriesType" class="block text-purple-200 text-sm font-medium mb-2">Accessories:</label>
+                    <select id="accessoriesType" class="w-full p-2 rounded-lg bg-purple-700 border border-purple-600 text-white focus:ring-2 focus:ring-purple-400">
+                        <option value="Blank">None</option>
+                        <option value="Kurt">Kurt</option>
+                        <option value="Prescription01">Prescription 1</option>
+                        <option value="Prescription02">Prescription 2</option>
+                        <option value="Round">Round</option>
+                        <option value="Sunglasses">Sunglasses</option>
+                        <option value="Wayfarers">Wayfarers</option>
+                    </select>
+                </div>
+
+
+                <!-- Build Button -->
+                <button id="generateBtn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-xl transition duration-300 ease-in-out transform hover:scale-105 shadow-md">
+                    Build Avatar
+                </button>
+            </div>
+
+            <!-- Avatar Display Section -->
+            <div class="bg-purple-800 bg-opacity-50 p-6 rounded-xl shadow-lg flex flex-col items-center justify-center relative">
+                <h2 class="text-2xl font-semibold text-white mb-4">Your Avatar</h2>
+                <!-- Main avatar image from Avataaars API -->
+                <div id="avatarImageWrapper" class="w-64 h-64 rounded-full flex items-center justify-center overflow-hidden shadow-inner border-2 border-purple-500 relative">
+                    <img id="avatarImage" src="https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortFlat&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=Hoodie&clotheColor=PastelBlue&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light" alt="Generated Avatar" class="w-full h-full object-cover rounded-full transition-opacity duration-300">
+                    <div id="loadingIndicator" class="absolute inset-0 flex items-center justify-center bg-purple-900 bg-opacity-75 rounded-full hidden">
+                        <div class="animate-spin rounded-full h-12 w-12 border-4 border-t-4 border-purple-300 border-opacity-75"></div>
+                    </div>
+                </div>
+                <p id="statusMessage" class="mt-4 text-purple-300 text-center text-sm">Select options and click 'Build Avatar'!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const generateBtn = document.getElementById('generateBtn');
+            const avatarStyleSelect = document.getElementById('avatarStyle');
+            const circleFillColorSelect = document.getElementById('circleFillColor');
+            const topTypeSelect = document.getElementById('topType');
+            // Removed hatColorSelect as its div is removed.
+            const hairColorSelect = document.getElementById('hairColor');
+            const facialHairTypeSelect = document.getElementById('facialHairType');
+            const eyeTypeSelect = document.getElementById('eyeType');
+            const eyebrowTypeSelect = document.getElementById('eyebrowType');
+            const mouthTypeSelect = document.getElementById('mouthType');
+            const skinColorSelect = document.getElementById('skinColor');
+            const clothesTypeSelect = document.getElementById('clothesType');
+            const clotheColorSelect = document.getElementById('clotheColor');
+            const graphicTypeSelect = document.getElementById('graphicType');
+            const accessoriesTypeSelect = document.getElementById('accessoriesType');
+            
+            const avatarImage = document.getElementById('avatarImage');
+            const avatarImageWrapper = document.getElementById('avatarImageWrapper');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const statusMessage = document.getElementById('statusMessage');
+            const circleFillColorDiv = document.getElementById('circleFillColorDiv'); 
+            // Removed hatColorDiv as its div is removed.
+
+            // Function to build the avatar URL
+            function buildAvatarUrl() {
+                const avatarStyle = avatarStyleSelect.value;
+                const topType = topTypeSelect.value;
+                // Removed hatColor parameter
+                const hairColor = hairColorSelect.value;
+                const facialHairType = facialHairTypeSelect.value;
+                const facialHairColor = hairColorSelect.value;
+                const eyeType = eyeTypeSelect.value;
+                const eyebrowType = eyebrowTypeSelect.value;
+                const mouthType = mouthTypeSelect.value;
+                const skinColor = skinColorSelect.value;
+                const clotheType = clothesTypeSelect.value;
+                const clotheColor = clotheColorSelect.value;
+                const graphicType = graphicTypeSelect.value;
+                const accessoriesType = accessoriesTypeSelect.value;
+
+                // Construct the URL based on avataaars.io parameters
+                let url = `https://avataaars.io/?avatarStyle=${avatarStyle}`;
+                url += `&topType=${topType}`;
+                // if (topType === "Hat") { Removed hatColor conditional
+                //     url += `&hatColor=${hatColor}`;
+                // }
+                url += `&hairColor=${hairColor}`;
+                url += `&facialHairType=${facialHairType}`;
+                if (facialHairType !== "Blank") {
+                    url += `&facialHairColor=${facialHairColor}`;
+                }
+                url += `&eyeType=${eyeType}`;
+                url += `&eyebrowType=${eyebrowType}`;
+                url += `&mouthType=${mouthType}`;
+                url += `&skinColor=${skinColor}`;
+                url += `&clotheType=${clotheType}`;
+                url += `&clotheColor=${clotheColor}`;
+                if (graphicType !== "none" && clotheType === "GraphicShirt") {
+                    url += `&graphicType=${graphicType}`;
+                }
+                url += `&accessoriesType=${accessoriesType}`;
+                
+                // Add a cache-busting timestamp to ensure a fresh image fetch
+                url += `&_t=${new Date().getTime()}`;
+
+                return url;
+            }
+
+            // Function to update the avatar image and its wrapper background
+            function updateAvatar() {
+                statusMessage.textContent = 'Building avatar...';
+                loadingIndicator.classList.remove('hidden');
+                avatarImage.style.opacity = '0.3';
+                generateBtn.disabled = true;
+
+                const avatarUrl = buildAvatarUrl();
+                avatarImage.src = avatarUrl;
+
+                // Handle circle fill color based on avatar style
+                if (avatarStyleSelect.value === 'Circle') {
+                    if (circleFillColorDiv) {
+                        avatarImageWrapper.style.backgroundColor = circleFillColorSelect.value;
+                        circleFillColorDiv.classList.remove('hidden'); // Show the color selector
+                    }
+                } else {
+                    if (circleFillColorDiv) {
+                        avatarImageWrapper.style.backgroundColor = 'transparent'; // Reset to transparent for other styles
+                        circleFillColorDiv.classList.add('hidden'); // Hide the color selector
+                    }
+                }
+
+                // Handle hat color visibility based on top type
+                // Removed hat color visibility logic
+                /*
+                if (topTypeSelect.value === 'Hat') {
+                    if (hatColorDiv) {
+                        hatColorDiv.classList.remove('hidden'); // Show hat color selector
+                    }
+                } else {
+                    if (hatColorDiv) {
+                        hatColorDiv.classList.add('hidden'); // Hide hat color selector
+                    }
+                }
+                */
+                
+                avatarImage.onload = () => {
+                    loadingIndicator.classList.add('hidden');
+                    avatarImage.style.opacity = '1';
+                    generateBtn.disabled = false;
+                    statusMessage.textContent = 'Avatar built successfully!';
+                };
+
+                avatarImage.onerror = () => {
+                    loadingIndicator.classList.add('hidden');
+                    avatarImage.style.opacity = '1';
+                    generateBtn.disabled = false;
+                    statusMessage.textContent = 'Error loading avatar. Please try again with different options.';
+                    avatarImage.src = 'https://placehold.co/256x256/FF0000/FFFFFF?text=Error'; // Fallback
+                    console.error("Failed to load avatar image from:", avatarUrl);
+                };
+            }
+
+            // Initial build on page load
+            updateAvatar();
+
+            // Add event listeners to all select elements and the button
+            avatarStyleSelect.addEventListener('change', updateAvatar);
+            circleFillColorSelect.addEventListener('change', updateAvatar);
+            topTypeSelect.addEventListener('change', updateAvatar);
+            // Removed hatColorSelect event listener
+            hairColorSelect.addEventListener('change', updateAvatar);
+            facialHairTypeSelect.addEventListener('change', updateAvatar);
+            eyeTypeSelect.addEventListener('change', updateAvatar);
+            eyebrowTypeSelect.addEventListener('change', updateAvatar);
+            mouthTypeSelect.addEventListener('change', updateAvatar);
+            skinColorSelect.addEventListener('change', updateAvatar);
+            clothesTypeSelect.addEventListener('change', updateAvatar);
+            clotheColorSelect.addEventListener('change', updateAvatar);
+            graphicTypeSelect.addEventListener('change', updateAvatar);
+            accessoriesTypeSelect.addEventListener('change', updateAvatar);
+            generateBtn.addEventListener('click', updateAvatar);
+        });
+    </script>
+</body>
+</html>
