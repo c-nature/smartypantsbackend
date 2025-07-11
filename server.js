@@ -14,10 +14,13 @@ const PORT = process.env.PORT || 3000;
 // --- CORS Configuration (FINAL FIX) ---
 // We will explicitly define the allowed origins to be as direct as possible.
 const allowedOrigins = [
-    'http://localhost:5500', 
-    'http://127.0.0.1:5500', 
-    'https://smartypants-irig.onrender.com', // Your frontend deployed on Render
-    'https://c-nature.github.io'           // Your frontend deployed on GitHub Pages
+    'http://localhost:5500',
+    'http://127.0.0.1:5500',
+    'https://smartypants-irig.onrender.com', // Your frontend deployed on Render (if still active)
+    'https://c-nature.github.io',         // Your frontend deployed on GitHub Pages (if still active)
+    'https://smartypants-nine.vercel.app', // <--- ADD YOUR VERCELL APP URL HERE
+    // If you have custom domains on Vercel, add them here too: 'https://www.yourcustomdomain.com'
+];           // Your frontend deployed on GitHub Pages
 ];
 
 const corsOptions = {
