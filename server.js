@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3000;
 // --- CORS Configuration ---
 // This is crucial for security in production!
 // Replace with your actual deployed frontend URL after you deploy it.
-const deployedFrontendUrl = 'https://your-frontend-app-name.onrender.com'; 
+const deployedFrontendUrl = 'https://smartypants-irig.onrender.com'; 
 const allowedOrigins = ['http://localhost:5500', 'http://127.0.0.1:5500'];
 if (process.env.NODE_ENV === 'production') {
     allowedOrigins.push(deployedFrontendUrl);
