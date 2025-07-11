@@ -16,20 +16,24 @@ const PORT = process.env.PORT || 3000;
 const allowedOrigins = [
     'http://localhost:5500', 
     'http://127.0.0.1:5500', 
-    'https://smartypants-irig.onrender.com' // Your deployed frontend URL
+    'https://smartypants-irig.onrender.com', // Your frontend deployed on Render
+    'https://c-nature.github.io'           // Your frontend deployed on GitHub Pages
 ];
 
 const corsOptions = {
-  origin: (origin, callback) => {
-    // The 'origin' is the URL of the site making the request (your frontend)
-    // We check if the incoming origin is in our list of allowed sites.
-    // The '!origin' part allows for tools like Postman or mobile apps to access the API.
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-      callback(null, true); // If it is, allow the request.
-    } else {
-      callback(new Error('This origin is not allowed by CORS policy.')); // If not, block it.
-    }
-  }
+    origin: (origin, callback) => {
+        // The 'origin' is the URL of the site making the request (your frontend)
+        // We check if the incoming origin is in our list of allowed sites.
+        // The '!origin' part allows for tools like Postman or mobile apps to access the API.
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+            callback(null, true); // If it is, allow the request.
+        } else {
+            callback(new Error('This origin is not allowed by CORS policy.')); // If not, block it.
+        }
+    },
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Allowed HTTP methods for your API
+    credentials: true, // IMPORTANT: Allows cookies/authorization headers to be sent cross-origin
+    optionsSuccessStatus: 204 // Standard status for successful OPTIONS preflight requests
 };
 
 // --- Middleware ---
