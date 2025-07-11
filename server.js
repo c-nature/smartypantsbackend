@@ -38,12 +38,6 @@
         app.use(cors(corsOptions));
         app.use(express.json());
 
-        // Add Cross-Origin-Resource-Policy header for backend responses
-        // This is crucial when your frontend is cross-origin-isolated
-        app.use((req, res, next) => {
-            res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
-            next();
-        });
 
         // --- Routes ---
         app.use('/user', UserRouter);
