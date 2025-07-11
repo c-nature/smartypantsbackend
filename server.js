@@ -21,7 +21,7 @@ const allowedOrigins = [
     'https://smartypants-nine.vercel.app', // <--- ADD YOUR VERCELL APP URL HERE
     // If you have custom domains on Vercel, add them here too: 'https://www.yourcustomdomain.com'
 ];           // Your frontend deployed on GitHub Pages
-];
+
 
 const corsOptions = {
     origin: (origin, callback) => {
